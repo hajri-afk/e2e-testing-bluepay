@@ -7,28 +7,31 @@ import { test, expect } from '@playwright/test';
  */
 test('Testing pendapatan page', async ({ page }) => {
   // Langsung navigate ke halaman pendapatan
-  // Authentication state sudah di-load otomatis dari global setup
-  await page.goto('https://bluepay.onanaterbaik.com/pendapatan', { waitUntil: 'networkidle' });
-  await page.waitForLoadState('domcontentloaded');
+  await page.goto('https://bluepay.onanaterbaik.com/pendapatan', { waitUntil: 'domcontentloaded', timeout: 30000 });
   await page.waitForTimeout(2000);
   
-  // Klik button Perbarui Data - tunggu dengan timeout yang cukup
-  try {
-    await page.getByRole('button', { name: 'sync Perbarui Data' }).waitFor({ state: 'visible', timeout: 15000 });
+  // Verifikasi URL sudah benar
+  const url = page.url();
+  if (!url.includes('pendapatan')) {
+    throw new Error(`Expected to be on pendapatan page, but URL is: ${url}`);
+  }
+  
+  console.log('Pendapatan page loaded successfully');
+  console.log('Current URL:', url);
+  
+  // Coba klik button Perbarui Data jika ada (optional)
+  const perbaruiVisible = await page.getByRole('button', { name: 'sync Perbarui Data' }).isVisible({ timeout: 3000 }).catch(() => false);
+  if (perbaruiVisible) {
     await page.getByRole('button', { name: 'sync Perbarui Data' }).click();
+    await page.waitForTimeout(1000);
+    console.log('Perbarui Data button clicked');
     
-    // Tunggu data refresh
-    await page.waitForTimeout(2000);
-    
-    // Klik pada div pendapatan jika ada
-    try {
-      await page.locator('div').filter({ hasText: 'PendapatanPemindahan dana' }).nth(4).waitFor({ state: 'visible', timeout: 10000 });
-      await page.locator('div').filter({ hasText: 'PendapatanPemindahan dana' }).nth(4).click();
-    } catch (e) {
-      console.log('Pendapatan detail element not found, but page loaded successfully');
+    // Cek pendapatan detail (optional)
+    const detailVisible = await page.locator('div').filter({ hasText: 'PendapatanPemindahan dana' }).nth(4).isVisible({ timeout: 2000 }).catch(() => false);
+    if (detailVisible) {
+      console.log('Pendapatan detail displayed');
     }
-  } catch (error) {
-    console.log('Perbarui Data button not found, but page loaded successfully');
-    console.log('Current URL:', page.url());
+  } else {
+    console.log('Perbarui Data button not available');
   }
 });

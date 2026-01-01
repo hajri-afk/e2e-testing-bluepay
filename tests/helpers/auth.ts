@@ -7,13 +7,13 @@ import { Page } from '@playwright/test';
  * @param page - Playwright page object
  * @param email - Email untuk login (default: bp-approved@yopmail.com)
  * @param password - Password untuk login (default: Password123!)
- * @param otp - OTP code (default: 7408)
+ * @param otp - OTP code (default: 9448)
  */
 export async function login(
   page: Page,
   email: string = 'bp-approved@yopmail.com',
   password: string = 'Password123!',
-  otp: string = '7408'
+  otp: string = '9448'
 ) {
   await page.goto('https://bluepay.onanaterbaik.com/auth/login');
   

@@ -35,10 +35,7 @@ export default defineConfig({
 
     /* Use saved authentication state - login hanya dilakukan sekali di global-setup.ts */
     /* Global setup akan membuat file ini sebelum test berjalan */
-    /* Hanya gunakan jika file sudah ada (setelah global setup berjalan) */
-    ...(fs.existsSync(path.join(__dirname, '.auth', 'auth-state.json')) && {
-      storageState: path.join(__dirname, '.auth', 'auth-state.json'),
-    }),
+    storageState: path.join(__dirname, '.auth', 'auth-state.json'),
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',

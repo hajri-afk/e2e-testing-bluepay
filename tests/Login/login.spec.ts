@@ -19,7 +19,7 @@ test('test login manual', async ({ page }) => {
   // Wait for OTP input
   await page.getByRole('spinbutton', { name: 'OTP Input 1' }).waitFor({ state: 'visible', timeout: 15000 });
   await page.getByRole('spinbutton', { name: 'OTP Input 1' }).click();
-  await page.getByRole('spinbutton', { name: 'OTP Input 1' }).fill('7408');
+  await page.getByRole('spinbutton', { name: 'OTP Input 1' }).fill('9448');
   await page.getByRole('button', { name: 'Kirim' }).click();
   
   // Wait for redirect after OTP - tunggu sampai tidak lagi di halaman login/OTP
