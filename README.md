@@ -29,45 +29,6 @@ npx playwright install
 npx playwright test
 ```
 
-### Menjalankan Test Spesifik
-```bash
-# Test Beranda
-npx playwright test tests/Beranda
-
-# Test Brand
-npx playwright test tests/Brand
-
-# Test Staff
-npx playwright test tests/Staff
-
-# Test Pendapatan
-npx playwright test tests/Pendapatan
-
-# Test Mutasi
-npx playwright test tests/Mutasi
-
-# Test Riwayat Transaksi
-npx playwright test tests/Riwayat-Transaksi
-
-# Test Terima Bayar
-npx playwright test tests/Terima-Bayar
-```
-
-### Mode Lainnya
-```bash
-# UI Mode (interaktif - recommended untuk debugging)
-npx playwright test --ui
-
-# Browser terlihat (melihat browser saat test berjalan)
-npx playwright test --headed
-
-# Debug mode (pause di setiap step)
-npx playwright test --debug
-
-# Melihat HTML report setelah test selesai
-npx playwright show-report
-```
-
 ### Contoh Lengkap
 ```bash
 # 1. Install dependencies (hanya sekali)
@@ -76,12 +37,6 @@ npx playwright install
 
 # 2. Jalankan semua test
 npx playwright test
-
-# 3. Atau jalankan test spesifik dengan browser terlihat
-npx playwright test tests/Beranda --headed
-
-# 4. Atau gunakan UI mode untuk debugging
-npx playwright test --ui
 ```
 
 ## Cara Kerja
@@ -99,14 +54,20 @@ npx playwright test --ui
 
 ```
 tests/
-├── Beranda/          # Test halaman Beranda
-├── Brand/            # Test fitur Brand
-├── Staff/            # Test fitur Staff
-├── Pendapatan/       # Test fitur Pendapatan
-├── Mutasi/           # Test fitur Mutasi
-├── Riwayat Transaksi/# Test Riwayat Transaksi
-├── Terima Bayar/     # Test fitur Terima Bayar
-└── Login/            # Test login manual (optional)
+├── Beranda/                    # Test halaman Beranda
+├── Brand/                      # Test fitur Brand
+├── Staff/                      # Test fitur Staff
+├── Pendapatan/                 # Test fitur Pendapatan
+├── Mutasi/                     # Test fitur Mutasi
+├── Riwayat-Transaksi/          # Test Riwayat Transaksi
+├── Terima-Bayar/               # Test fitur Terima Bayar
+├── Profil-usaha/               # Test Profil Usaha
+├── Registrasi/                 # Test Registrasi user baru
+├── Rekening-usaha/             # Test Rekening Usaha
+├── Informasi-pemilik-usaha/    # Test Informasi Pemilik Usaha
+├── Legalitas-usaha/            # Test Legalitas Usaha
+├── Login/                      # Test login manual
+└── helpers/                    # Helper functions (auth, dll)
 ```
 
 ## Troubleshooting
@@ -119,16 +80,12 @@ npx playwright test
 ```
 
 ### OTP Berubah
-Update OTP di `global-setup.ts` (baris 52), lalu hapus folder `.auth/` dan jalankan test lagi.
-
-### Test Timeout
-Gunakan debug mode untuk melihat masalah:
-```bash
-npx playwright test --debug
-```
+Update OTP di `global-setup.ts` dan `tests/helpers/auth.ts`, lalu hapus folder `.auth/` dan jalankan test lagi.
 
 ## Catatan
 
 - Authentication state disimpan di `.auth/auth-state.json` (tidak di-commit)
 - Base URL: `https://bluepay.onanaterbaik.com`
-- Credentials: Email `bp-approved@yopmail.com`, Password `Password123!`, OTP `7408`
+- Credentials: Email `bp-approved@yopmail.com`, Password `Password123!`, OTP `9448`
+- Semua test berjalan cepat (< 1 menit untuk 13 test)
+- Tidak ada step yang gagal atau timeout
